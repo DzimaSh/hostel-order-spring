@@ -1,5 +1,7 @@
 -- Create sequence for HostelUser id
-CREATE SEQUENCE hostel_user_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS hostel_user_seq
+    START WITH 1
+    INCREMENT BY 1;
 
 -- Create HostelUser table
 CREATE TABLE hostel_user
@@ -12,19 +14,24 @@ CREATE TABLE hostel_user
 );
 
 -- Create sequence for Room id
-CREATE SEQUENCE room_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS room_seq
+    START WITH 1
+    INCREMENT BY 1;
 
 -- Create Room table
 CREATE TABLE room
 (
     id                 BIGINT DEFAULT nextval('room_seq') PRIMARY KEY,
+    room_number        INT,
     type               VARCHAR(50),
     possible_livers    BIGINT,
     rent_price_per_day DOUBLE PRECISION
 );
 
 -- Create sequence for Bill id
-CREATE SEQUENCE bill_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS bill_seq
+    START WITH 1
+    INCREMENT BY 1;
 
 -- Create Bill table
 CREATE TABLE bill
@@ -35,17 +42,21 @@ CREATE TABLE bill
 );
 
 -- Create sequence for HostelOrder id
-CREATE SEQUENCE hostel_order_seq START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS hostel_order_seq
+    START WITH 1
+    INCREMENT BY 1;
 
 -- Create HostelOrder table
 CREATE TABLE hostel_order
 (
-    id         BIGINT DEFAULT nextval('hostel_order_seq') PRIMARY KEY,
-    start_date TIMESTAMP,
-    end_date   TIMESTAMP,
-    status     VARCHAR(50),
-    client_id  BIGINT,
-    bill_id    BIGINT
+    id                BIGINT DEFAULT nextval('hostel_order_seq') PRIMARY KEY,
+    start_date        TIMESTAMP,
+    end_date          TIMESTAMP,
+    desired_room_type VARCHAR(50),
+    desired_beds      INT,
+    status            VARCHAR(50),
+    client_id         BIGINT,
+    bill_id           BIGINT
 );
 
 -- Create order_room table for many-to-many relationship between HostelOrder and Room

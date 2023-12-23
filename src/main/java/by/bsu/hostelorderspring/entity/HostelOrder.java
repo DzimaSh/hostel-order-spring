@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.Set;
@@ -16,6 +17,11 @@ import java.util.Set;
 @Table(name = "hostel_order")
 @AllArgsConstructor
 @NoArgsConstructor
+@SequenceGenerator(
+        name = "default_seq",
+        sequenceName = "hostel_order_seq",
+        allocationSize = 1
+)
 public class HostelOrder extends BaseEntity {
 
     @ManyToOne
@@ -30,12 +36,19 @@ public class HostelOrder extends BaseEntity {
     )
     private Set<Room> rooms;
 
+    @Enumerated(EnumType.STRING)
+    private Room.Type desiredRoomType;
+
+    private Integer desiredBeds;
+
     @OneToOne
     @JoinColumn(name = "bill_id")
     private Bill bill;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
 
     @Enumerated(EnumType.STRING)

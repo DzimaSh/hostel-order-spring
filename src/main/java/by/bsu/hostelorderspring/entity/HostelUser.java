@@ -15,6 +15,11 @@ import java.util.Set;
 @Table(name = "hostel_user")
 @NoArgsConstructor
 @AllArgsConstructor
+@SequenceGenerator(
+        name = "default_seq",
+        sequenceName = "hostel_user_seq",
+        allocationSize = 1
+)
 public class HostelUser extends BaseEntity {
 
     private String name;
