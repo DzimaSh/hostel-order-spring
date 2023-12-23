@@ -1,8 +1,6 @@
 package by.bsu.hostelorderspring.entity;
 
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

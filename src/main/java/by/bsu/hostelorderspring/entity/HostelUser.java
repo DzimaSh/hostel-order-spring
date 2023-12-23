@@ -19,6 +19,11 @@ public class HostelUser extends BaseEntity {
 
     private String name;
 
+    @Column(unique = true)
+    private String email;
+
+    private String password;
+
     @Enumerated(EnumType.STRING)
     private Authority authority;
 

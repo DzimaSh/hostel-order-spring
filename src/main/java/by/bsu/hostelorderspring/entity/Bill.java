@@ -1,9 +1,7 @@
 package by.bsu.hostelorderspring.entity;
 
 import by.bsu.hostelorderspring.entity.enums.BillStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +17,8 @@ public class Bill extends BaseEntity {
     @OneToOne(mappedBy = "bill")
     private HostelOrder hostelOrder;
 
-    private Long billPrice;
+    private Double billPrice;
 
+    @Enumerated(EnumType.STRING)
     private BillStatus status = BillStatus.NOT_PAYED;
 }

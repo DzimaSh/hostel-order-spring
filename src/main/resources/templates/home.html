@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome to Spring Security Thymeleaf tutorial</title>
+</head>
+    <body>
+        <h2>Welcome, <span sec:authentication="name">user</span></h2>
+        <div sec:authorize="hasAuthority('USER')">Text visible to user.</div>
+        <div sec:authorize="hasAuthority('ADMIN')">Text visible to admin.</div>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Logout">
+        </form>
+    </body>
+</html>

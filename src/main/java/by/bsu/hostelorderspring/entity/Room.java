@@ -1,8 +1,6 @@
 package by.bsu.hostelorderspring.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,9 +16,17 @@ import java.util.Set;
 @NoArgsConstructor
 public class Room extends BaseEntity {
 
+    public enum Type {
+        BASIC,
+        PREMIUM
+    }
+
     private Long possibleLivers;
 
-    private Long rentPricePerDay;
+    private Double rentPricePerDay;
+
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @ManyToMany(mappedBy = "rooms")
     private Set<HostelOrder> hostelOrders;
