@@ -1,0 +1,22 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: hostel-order
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hostel-order
+    username: postgres
+    password: shushkevich
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL81Dialect
+        format_sql: true
+
+    show-sql: false
