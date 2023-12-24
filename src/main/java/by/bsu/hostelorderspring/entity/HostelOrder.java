@@ -1,7 +1,6 @@
 package by.bsu.hostelorderspring.entity;
 
 import by.bsu.hostelorderspring.entity.base.DateRangeEntity;
-import by.bsu.hostelorderspring.entity.enums.OrderStatus;
 import by.bsu.hostelorderspring.validation.annotation.DateOrderConstraint;
 import by.bsu.hostelorderspring.validation.group.AfterInitialized;
 import by.bsu.hostelorderspring.validation.group.BeforeInitialized;
@@ -31,6 +30,13 @@ import java.util.Set;
 @DateOrderConstraint(groups = { AfterInitialized.class })
 public class HostelOrder extends DateRangeEntity {
 
+    public enum Status {
+        OPEN,
+        APPROVED,
+        PAYED,
+        CLOSED,
+    }
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private HostelUser client;
@@ -58,7 +64,7 @@ public class HostelOrder extends DateRangeEntity {
     private Bill bill;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private Status status;
 
     @Override
     @Future(message = "Start date should be upcoming", groups = AfterInitialized.class)

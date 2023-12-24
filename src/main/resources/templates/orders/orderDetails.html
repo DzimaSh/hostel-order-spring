@@ -1,10 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/details.css}">
 </head>
-<body>
+    <body>
+        <div class="order-details">
+            <h1>Order Payment</h1>
+            <p>Start date: <span th:text="${order.startDate}"></span></p>
+            <p>End date: <span th:text="${order.endDate}"></span></p>
+            <p>Desired room type: <span th:text="${order.desiredRoomType}"></span></p>
+            <div th:if="${order.status.name() == 'APPROVED'}">
+                <div>
+                    <h3>Rooms:</h3>
+                    <ul>
+                        <li th:each="room : ${order.rooms}">
+                            <span th:text="${'Room #' + room.roomNumber + ' (' + room.possibleLivers + ' beds) - ' + room.rentPricePerDay + ' u.c per day'}"></span>
+                        </li>
+                    </ul>
+                </div>
+                <p> Total Days: <span th:text="${order.countPeriodOfOrder()}"></span></p>
+                <p>Total Amount: <span th:text="${order.bill.billPrice}"></span></p>
 
-</body>
+                <div th:if="${order.bill.status.name() == 'PAYED'}">
+                    <p style="color: green;">Bill is Paid</p>
+                </div>
+                <div th:unless="${order.bill.status.name() == 'PAYED'}">
+                    <form id="payBillForm" method="post" th:action="@{'/bills/' + ${order.bill.id} + '/pay'}">
+                        <input type="submit" value="Pay Bill" class="payment-button">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

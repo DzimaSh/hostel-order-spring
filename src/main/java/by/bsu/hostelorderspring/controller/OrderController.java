@@ -26,6 +26,14 @@ public class OrderController {
         return "orders/createOrder";
     }
 
+    @GetMapping("/{orderId}")
+    public String details(@PathVariable("orderId") Long orderId, Model model) {
+        HostelOrder order = hostelOrderService.getOrderById(orderId);
+
+        model.addAttribute("order", order);
+        return "orders/orderDetails";
+    }
+
     @GetMapping("/view")
     public String viewOrders(Model model,
                              @AuthenticationPrincipal HostelUserDetails userDetails

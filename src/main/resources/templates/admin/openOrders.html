@@ -25,8 +25,12 @@
                 <th>Status</th>
             </tr>
             </thead>
-            <tbody class="clickable">
-            <tr th:each="order : ${orders}" th:onclick="handleRowClick(/*[[${order.id}]]*/, true)">
+            <tbody>
+            <tr
+                th:each="order : ${orders}"
+                class="clickable"
+                th:onclick="handleRowClick(/*[[${order.id}]]*/, true)"
+            >
                 <td th:text="${order.client.email}"></td>
                 <td th:text="${order.desiredRoomType}"></td>
                 <td th:text="${order.desiredBeds}"></td>

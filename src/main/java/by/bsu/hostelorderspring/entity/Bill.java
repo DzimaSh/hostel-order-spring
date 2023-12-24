@@ -1,7 +1,6 @@
 package by.bsu.hostelorderspring.entity;
 
 import by.bsu.hostelorderspring.entity.base.BaseEntity;
-import by.bsu.hostelorderspring.entity.enums.BillStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +17,11 @@ import lombok.*;
 )
 public class Bill extends BaseEntity {
 
+    public enum Status {
+        NOT_PAYED,
+        PAYED,
+    }
+
     @OneToOne(mappedBy = "bill")
     @ToString.Exclude
     private HostelOrder hostelOrder;
@@ -25,5 +29,5 @@ public class Bill extends BaseEntity {
     private Double billPrice;
 
     @Enumerated(EnumType.STRING)
-    private BillStatus status = BillStatus.NOT_PAYED;
+    private Status status = Status.NOT_PAYED;
 }

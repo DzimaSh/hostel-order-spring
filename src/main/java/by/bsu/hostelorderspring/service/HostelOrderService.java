@@ -4,10 +4,7 @@ import by.bsu.hostelorderspring.entity.Bill;
 import by.bsu.hostelorderspring.entity.HostelOrder;
 import by.bsu.hostelorderspring.entity.HostelUser;
 import by.bsu.hostelorderspring.entity.Room;
-import by.bsu.hostelorderspring.entity.enums.BillStatus;
-import by.bsu.hostelorderspring.entity.enums.OrderStatus;
 import by.bsu.hostelorderspring.repository.HostelOrderRepository;
-import by.bsu.hostelorderspring.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +38,7 @@ public class HostelOrderService {
         Bill clientBill = new Bill();
         clientBill.setHostelOrder(hostelOrder);
 
-        hostelOrder.setStatus(OrderStatus.OPEN);
+        hostelOrder.setStatus(HostelOrder.Status.OPEN);
         hostelOrder.setClient(client);
         hostelOrder.setBill(clientBill);
 
@@ -49,7 +46,7 @@ public class HostelOrderService {
     }
 
     public List<HostelOrder> getOpenOrders() {
-        return orderRepository.findAllByStatus(OrderStatus.OPEN);
+        return orderRepository.findAllByStatus(HostelOrder.Status.OPEN);
     }
 
     public HostelOrder approve(Long orderId, List<Long> roomIds) {
@@ -68,7 +65,7 @@ public class HostelOrderService {
         });
 
         orderToApprove.setRooms(selectedRooms);
-        orderToApprove.setStatus(OrderStatus.APPROVED);
+        orderToApprove.setStatus(HostelOrder.Status.APPROVED);
 
         return orderRepository.save(orderToApprove);
     }

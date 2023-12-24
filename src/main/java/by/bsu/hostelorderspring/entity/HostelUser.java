@@ -1,7 +1,6 @@
 package by.bsu.hostelorderspring.entity;
 
 import by.bsu.hostelorderspring.entity.base.BaseEntity;
-import by.bsu.hostelorderspring.entity.enums.Authority;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +18,11 @@ import java.util.Set;
         allocationSize = 1
 )
 public class HostelUser extends BaseEntity {
+
+    public enum Authority {
+        ADMIN,
+        USER
+    }
 
     private String name;
 
