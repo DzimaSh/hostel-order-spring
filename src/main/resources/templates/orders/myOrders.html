@@ -2,20 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>View Orders</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/table.css}">
+    <script type="text/javascript" th:src="@{/js/table.js}"></script>
 </head>
 <body>
     <h2>Your Orders</h2>
@@ -29,6 +17,7 @@
                 <tr>
                     <th>Rooms</th>
                     <th>Desired Room Type</th>
+                    <th>Desired Beds</th>
                     <th>Bill Status</th>
                     <th>Start Date</th>
                     <th>End Date</th>
@@ -36,13 +25,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="order : ${orders}">
+                <tr th:each="order : ${orders}" th:onclick="handleRowClick(/*[[${order.id}]]*/)">
                     <td>
                         <ul>
-                            <li th:each="room : ${order.rooms}" th:text="${room.roomNumber}"></li>
+                            <li
+                                th:each="room : ${order.rooms}"
+                                th:text="${String.format('Room #%d (%d beds)', room.roomNumber, room.possibleLivers)}"
+                            ></li>
                         </ul>
                     </td>
                     <td th:text="${order.desiredRoomType}"></td>
+                    <td th:text="${order.desiredBeds}"></td>
                     <td th:if="${order.bill != null}" th:text="${order.bill.status}"></td>
                     <td th:unless="${order.bill != null}">N/A</td>
                     <td th:text="${#dates.format(order.startDate, 'dd-MM-yyyy')}"></td>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/table.css}">
+    <script type="text/javascript" th:src="@{/js/table.js}"></script>
+</head>
+<body>
+    <h2>Open Orders</h2>
+
+    <div th:if="${orders.isEmpty()}">
+        <p>No open orders found.</p>
+    </div>
+
+    <div th:if="${not orders.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <th>Client email</th>
+                <th>Desired Room Type</th>
+                <th>Desired Beds</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}" th:onclick="handleRowClick(/*[[${order.id}]]*/, true)">
+                <td th:text="${order.client.email}"></td>
+                <td th:text="${order.desiredRoomType}"></td>
+                <td th:text="${order.desiredBeds}"></td>
+                <td th:text="${#dates.format(order.startDate, 'dd-MM-yyyy')}"></td>
+                <td th:text="${#dates.format(order.endDate, 'dd-MM-yyyy')}"></td>
+                <td th:text="${order.status}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

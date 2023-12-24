@@ -30,4 +30,8 @@ public class HostelOrderService {
 
         return orderRepository.save(hostelOrder);
     }
+
+    public List<HostelOrder> getOpenOrders() {
+        return orderRepository.findAllByStatus(OrderStatus.OPEN);
+    }
 }
