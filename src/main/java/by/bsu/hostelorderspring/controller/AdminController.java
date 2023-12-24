@@ -1,7 +1,9 @@
 package by.bsu.hostelorderspring.controller;
 
+import by.bsu.hostelorderspring.entity.Bill;
 import by.bsu.hostelorderspring.entity.HostelOrder;
 import by.bsu.hostelorderspring.entity.Room;
+import by.bsu.hostelorderspring.service.BillService;
 import by.bsu.hostelorderspring.service.HostelOrderService;
 import by.bsu.hostelorderspring.service.RoomService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class AdminController {
 
     private final HostelOrderService hostelOrderService;
     private final RoomService roomService;
+    private final BillService billService;
 
     @GetMapping("/orders/open")
     public String getOpenOrders(Model model) {
@@ -43,5 +46,13 @@ public class AdminController {
                                @RequestParam("selectedRooms") List<Long> selectedRooms) {
         hostelOrderService.approve(orderId, selectedRooms);
         return "redirect:/admin/orders/open";
+    }
+
+    @GetMapping("/bills/unpaid")
+    public String getUnpaidBills(Model model) {
+        List<Bill> unpaidBills = billService.getUnpaidBills();
+
+        model.addAttribute("unpaidBills", unpaidBills);
+        return "admin/unpaidBills";
     }
 }

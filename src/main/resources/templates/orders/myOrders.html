@@ -25,14 +25,13 @@
                     <th>Status</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="clickable">
                 <tr th:each="order : ${orders}" th:onclick="handleRowClick(/*[[${order.id}]]*/)">
                     <td>
                         <ul>
-                            <li
-                                th:each="room : ${order.rooms}"
-                                th:text="${String.format('Room #%d (%d beds)', room.roomNumber, room.possibleLivers)}"
-                            ></li>
+                            <li th:each="room : ${order.rooms}">
+                                <span th:text="${'Room #' + room.roomNumber + ' (' + room.possibleLivers + ' beds)'}"></span>
+                            </li>
                         </ul>
                     </td>
                     <td th:text="${order.desiredRoomType}"></td>
