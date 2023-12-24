@@ -24,6 +24,7 @@ CREATE TABLE room
     id                 BIGINT DEFAULT nextval('room_seq') PRIMARY KEY,
     room_number        INT,
     type               VARCHAR(50),
+    status             VARCHAR(50),
     possible_livers    BIGINT,
     rent_price_per_day DOUBLE PRECISION
 );

@@ -54,7 +54,7 @@ public class HostelOrder extends DateRangeEntity {
     @NotNull(message = "Provide the amount of beds you need", groups = BeforeInitialized.class)
     private Integer desiredBeds;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bill_id")
     private Bill bill;
 

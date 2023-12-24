@@ -1,6 +1,6 @@
 function handleRowClick(orderId, isAdmin = false) {
-    const url = '/orders/details/' + orderId;
+    const url = '/orders/' + orderId;
     window.location.href = isAdmin
-        ? `/admin${url}`
+        ? `/admin${url}/approve`
         : url;
 }

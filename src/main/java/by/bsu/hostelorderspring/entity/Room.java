@@ -32,11 +32,20 @@ public class Room extends BaseEntity {
         PREMIUM
     }
 
+    public enum Status {
+        FREE,
+        RESERVED,
+        OCCUPIED
+    }
+
     private Integer roomNumber;
 
     private Long possibleLivers;
 
     private Double rentPricePerDay;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Enumerated(EnumType.STRING)
     private Type type;

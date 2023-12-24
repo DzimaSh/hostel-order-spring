@@ -19,6 +19,7 @@
                     <th>Desired Room Type</th>
                     <th>Desired Beds</th>
                     <th>Bill Status</th>
+                    <th>Bill Amount</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Status</th>
@@ -37,7 +38,8 @@
                     <td th:text="${order.desiredRoomType}"></td>
                     <td th:text="${order.desiredBeds}"></td>
                     <td th:if="${order.bill != null}" th:text="${order.bill.status}"></td>
-                    <td th:unless="${order.bill != null}">N/A</td>
+                    <td th:if="${order.bill.billPrice != null}" th:text="${order.bill.billPrice}"></td>
+                    <td th:unless="${order.bill.billPrice != null}">N/A</td>
                     <td th:text="${#dates.format(order.startDate, 'dd-MM-yyyy')}"></td>
                     <td th:text="${#dates.format(order.endDate, 'dd-MM-yyyy')}"></td>
                     <td th:text="${order.status}"></td>

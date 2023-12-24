@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/details.css}">
+    <script type="text/javascript" th:src="@{/js/counter.js}"></script>
 </head>
-<body>
+    <body>
+    <h2>Order Details</h2>
 
-</body>
+    <div th:if="${order != null}">
+        <p>Client name: <span th:text="${order.client.name}"></span></p>
+        <p>Start Date: <span th:text="${order.startDate}"></span></p>
+        <p>End Date: <span th:text="${order.endDate}"></span></p>
+        <p>Status: <span th:text="${order.status}"></span></p>
+
+        <h3>Available Rooms</h3>
+        <form th:action="@{/orders/approve}" method="post">
+            <input type="hidden" th:name="orderId" th:value="${order.id}" />
+            <label for="selectedRooms">Select rooms for user</label>
+            <select
+                id="selectedRooms"
+                multiple="multiple"
+                class="multi-select"
+                th:name="selectedRooms"
+                th:onchange="calculateTotalRent()"
+            >
+                <option th:each="room : ${availableRooms}"
+                        th:value="${room.id}"
+                        th:text="${room.roomNumber + ' - ' + room.type + ' (' + room.possibleLivers + ')' + ' - ' + room.rentPricePerDay + ' c.u.'}">
+                </option>
+            </select>
+            <div>
+                Total rent per day: <span id="totalRent">0</span>
+            </div>
+            <button type="submit" class="submit-button">Approve Order</button>
+        </form>
+    </div>
+    </body>
 </html>
