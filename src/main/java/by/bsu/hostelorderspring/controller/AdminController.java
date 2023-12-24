@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@PreAuthorize("hasAuthority('ADMIN')")
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")

@@ -1,5 +1,6 @@
 package by.bsu.hostelorderspring.configuration;
 
+import by.bsu.hostelorderspring.entity.HostelUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
+
+import static by.bsu.hostelorderspring.entity.HostelUser.Authority.ADMIN;
 
 @Configuration
 @EnableWebSecurity
@@ -36,6 +39,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/admin/**").hasAuthority(ADMIN.name())
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
