@@ -40,8 +40,8 @@
                     <td th:if="${order.bill != null}" th:text="${order.bill.status}"></td>
                     <td th:if="${order.bill.billPrice != null}" th:text="${order.bill.billPrice}"></td>
                     <td th:unless="${order.bill.billPrice != null}">N/A</td>
-                    <td th:text="${#dates.format(order.startDate, 'dd-MM-yyyy')}"></td>
-                    <td th:text="${#dates.format(order.endDate, 'dd-MM-yyyy')}"></td>
+                    <td th:text="${order.startDate}"></td>
+                    <td th:text="${order.endDate}"></td>
                     <td th:text="${order.status}"></td>
                 </tr>
                 </tbody>

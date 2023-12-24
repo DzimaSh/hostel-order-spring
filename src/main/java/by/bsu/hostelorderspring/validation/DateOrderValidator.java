@@ -14,6 +14,6 @@ public class DateOrderValidator implements ConstraintValidator<DateOrderConstrai
 
     @Override
     public boolean isValid(DateRangeEntity value, ConstraintValidatorContext context) {
-        return value.getStartDate().before(value.getEndDate());
+        return value.getStartDate().isBefore(value.getEndDate());
     }
 }

@@ -16,7 +16,7 @@
         <p>Status: <span th:text="${order.status}"></span></p>
 
         <h3>Available Rooms</h3>
-        <form th:action="@{/orders/approve}" method="post">
+        <form th:action="@{/admin/orders/{orderId}/approve(orderId=${order.id})}" method="post" th:object="${order}">
             <input type="hidden" th:name="orderId" th:value="${order.id}" />
             <label for="selectedRooms">Select rooms for user</label>
             <select

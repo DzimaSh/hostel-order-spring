@@ -9,20 +9,20 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @EqualsAndHashCode(callSuper = true)
 @MappedSuperclass
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DateRangeEntity extends BaseEntity {
+public abstract class DateRangeEntity extends BaseEntity {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Provide start date", groups = BeforeInitialized.class)
-    protected Date startDate;
+    protected LocalDate startDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Provide end date", groups = BeforeInitialized.class)
-    protected Date endDate;
+    protected LocalDate endDate;
 }

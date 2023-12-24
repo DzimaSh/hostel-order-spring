@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +36,12 @@ public class AdminController {
         model.addAttribute("order", order);
         model.addAttribute("availableRooms", availableRooms);
         return "admin/orderApprove";
+    }
+
+    @PostMapping("/orders/{orderId}/approve")
+    public String approveOrder(@PathVariable(name = "orderId") Long orderId,
+                               @RequestParam("selectedRooms") List<Long> selectedRooms) {
+        hostelOrderService.approve(orderId, selectedRooms);
+        return "redirect:/admin/orders/open";
     }
 }

@@ -51,8 +51,8 @@ CREATE SEQUENCE IF NOT EXISTS hostel_order_seq
 CREATE TABLE hostel_order
 (
     id                BIGINT DEFAULT nextval('hostel_order_seq') PRIMARY KEY,
-    start_date        TIMESTAMP,
-    end_date          TIMESTAMP,
+    start_date        DATE,
+    end_date          DATE,
     desired_room_type VARCHAR(50),
     desired_beds      INT,
     status            VARCHAR(50),

@@ -10,16 +10,13 @@ import jakarta.validation.GroupSequence;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.groups.Default;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = { "rooms", "bill" })
 @Entity
 @Data
 @Table(name = "hostel_order")
@@ -38,12 +35,13 @@ public class HostelOrder extends DateRangeEntity {
     @JoinColumn(name = "client_id")
     private HostelUser client;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "order_room",
             joinColumns = { @JoinColumn(name = "order_id") },
             inverseJoinColumns = { @JoinColumn(name = "room_id") }
     )
+    @ToString.Exclude
     private Set<Room> rooms;
 
     @Enumerated(EnumType.STRING)
@@ -56,6 +54,7 @@ public class HostelOrder extends DateRangeEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bill_id")
+    @ToString.Exclude
     private Bill bill;
 
     @Enumerated(EnumType.STRING)
@@ -63,13 +62,17 @@ public class HostelOrder extends DateRangeEntity {
 
     @Override
     @Future(message = "Start date should be upcoming", groups = AfterInitialized.class)
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return super.getStartDate();
     }
 
     @Override
     @Future(message = "End date should be upcoming", groups = AfterInitialized.class)
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return super.getEndDate();
+    }
+
+    public Long countPeriodOfOrder() {
+        return ChronoUnit.DAYS.between(startDate, endDate);
     }
 }

@@ -3,12 +3,9 @@ package by.bsu.hostelorderspring.entity;
 import by.bsu.hostelorderspring.entity.base.BaseEntity;
 import by.bsu.hostelorderspring.entity.enums.BillStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "hostelOrder")
 @Entity
 @Data
 @Table(name = "bill")
@@ -22,6 +19,7 @@ import lombok.NoArgsConstructor;
 public class Bill extends BaseEntity {
 
     @OneToOne(mappedBy = "bill")
+    @ToString.Exclude
     private HostelOrder hostelOrder;
 
     private Double billPrice;

@@ -7,14 +7,12 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.Collection;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "hostelOrders")
 @Data
 @Entity
 @Table(name = "room")
@@ -51,5 +49,12 @@ public class Room extends BaseEntity {
     private Type type;
 
     @ManyToMany(mappedBy = "rooms")
+    @ToString.Exclude
     private Set<HostelOrder> hostelOrders;
+
+    public Room addOrders(Collection<HostelOrder> orders) {
+        this.getHostelOrders().addAll(orders);
+
+        return this;
+    }
 }
