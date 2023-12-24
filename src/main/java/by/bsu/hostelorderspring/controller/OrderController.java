@@ -3,10 +3,12 @@ package by.bsu.hostelorderspring.controller;
 import by.bsu.hostelorderspring.entity.HostelOrder;
 import by.bsu.hostelorderspring.security.HostelUserDetails;
 import by.bsu.hostelorderspring.service.HostelOrderService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,9 +36,13 @@ public class OrderController {
     }
 
     @PostMapping
-    public String createOrder(@ModelAttribute("order") HostelOrder order,
+    public String createOrder(@ModelAttribute("order") @Valid HostelOrder order,
+                              BindingResult bindingResult,
                               @AuthenticationPrincipal HostelUserDetails userDetails
     ) {
+        if (bindingResult.hasErrors()) {
+            return "orders/createOrder";
+        }
         hostelOrderService.createOrder(userDetails.getId(), order);
         return "redirect:/orders/view";
     }

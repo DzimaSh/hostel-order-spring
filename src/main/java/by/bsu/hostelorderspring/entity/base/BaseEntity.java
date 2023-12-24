@@ -1,4 +1,4 @@
-package by.bsu.hostelorderspring.entity;
+package by.bsu.hostelorderspring.entity.base;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,5 +14,5 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "default_seq")
-    private Long id;
+    protected Long id;
 }

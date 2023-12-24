@@ -1,5 +1,6 @@
 package by.bsu.hostelorderspring.entity;
 
+import by.bsu.hostelorderspring.entity.base.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
